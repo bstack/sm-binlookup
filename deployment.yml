@@ -18,7 +18,7 @@ spec:
       containers:
         - name: binlookup
           image: billystack/sm-binlookup:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:

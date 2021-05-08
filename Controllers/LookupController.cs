@@ -31,6 +31,7 @@ namespace binlookup.Controllers
         public IActionResult Post(
             [FromBody] Models.LookupRequest lookupRequest)
         {
+            Console.WriteLine("0");
             var _requestId = Guid.NewGuid().ToString();
             var _correlationId = Request.Headers["X-Correlation-Id"].ToString();
             this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", "Start");
