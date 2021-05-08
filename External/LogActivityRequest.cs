@@ -5,14 +5,9 @@ namespace binlookup.External
 {
     public class LogActivityRequest
     {
-        public string Service;
-        public string Activity;
-        public string ActivityDetail;
-
-
-        public LogActivityRequest()
-        {
-        }
+        public string Service { get; }
+        public string Activity { get; }
+        public string ActivityDetail { get; }
 
 
         public LogActivityRequest(
