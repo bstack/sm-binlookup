@@ -31,25 +31,18 @@ namespace binlookup.Controllers
         public IActionResult Post(
             [FromBody] Models.LookupRequest lookupRequest)
         {
-            Console.WriteLine("0");
             var _requestId = Guid.NewGuid().ToString();
             var _correlationId = Request.Headers["X-Correlation-Id"].ToString();
             this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", "Start");
-            Console.WriteLine("1");
 
             // For testing purposes only
             this.c_testHelperRepository.SeedDatabase();
-            Console.WriteLine("2");
             this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", "Database seeded for testing purposes");
-
-            Console.WriteLine("3");
 
             // Idempotency check, if already there, return result
             var _previouslyCreatedBINLookupResult = this.c_BINLookupResultRepository.Get(_requestId);
 
-            Console.WriteLine("4");
             this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", $"Idempotency check completed");
-            Console.WriteLine("5");
 
             if (_previouslyCreatedBINLookupResult != null)
             {
@@ -65,14 +58,12 @@ namespace binlookup.Controllers
             }
 
             var _bins = this.c_BINRepository.GetAllBins();
-            Console.WriteLine("6");
             if (_bins.Count() == 0)
             {
                 this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", "BINs count = 0, 500 returned");
                 return this.StatusCode(
                     StatusCodes.Status500InternalServerError);
             }
-            Console.WriteLine("7");
 
             var _matchedBin = _bins.SingleOrDefault(
                 bin => lookupRequest.CardNumberBin >= bin.Low && lookupRequest.CardNumberBin <= bin.High);
@@ -94,8 +85,6 @@ namespace binlookup.Controllers
 
                 this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", "Matching bin found");
                 this.c_reportingClient.LogActivity(_requestId, _correlationId, "LookupController.Post", $"201 returned, response: {_lookupResponse.ToString()}");
-
-                Console.WriteLine("8");
 
                 return this.StatusCode(
                     StatusCodes.Status201Created,
