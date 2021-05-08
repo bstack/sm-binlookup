@@ -17,7 +17,6 @@ namespace binlookup.Data
             AppSettings appSettings)
         {
             this.c_appSettings = appSettings;
-            Console.WriteLine($"Here:fsdfsdfsdffsd:{appSettings.DatabaseConnectionString}");
 
             this.c_redisConnection = ConnectionMultiplexer.Connect($"{appSettings.DatabaseConnectionString}, allowAdmin = true");
             this.c_database = this.c_redisConnection.GetDatabase();
