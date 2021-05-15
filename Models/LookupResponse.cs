@@ -4,23 +4,23 @@ namespace binlookup.Models
 {
 	public class LookupResponse
 	{
-		public string card_scheme { get; }
-		public string country { get; }
-		public string currency { get; }
+		public string CardScheme { get; }
+		public string Country { get; }
+		public string Currency { get; }
 
 		public LookupResponse(
-			string card_scheme,
+			string cardScheme,
 			string country,
 			string currency)
 		{
-			this.card_scheme = card_scheme;
-			this.country = country;
-			this.currency = currency;
+			this.CardScheme = cardScheme;
+			this.Country = country;
+			this.Currency = currency;
 		}
 
 		public override string ToString()
 		{
-			return $"LookupRequest[card_scheme: {this.card_scheme}, country: {this.country}, currency:{this.currency}]";
+			return $"LookupRequest[CardScheme: {this.CardScheme}, Country: {this.Country}, Currency:{this.Currency}]";
 		}
 	}
 }
